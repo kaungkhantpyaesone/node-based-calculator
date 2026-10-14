@@ -1,0 +1,319 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/lora/500.css';
+@import '@fontsource/lora/600.css';
+@import '@xyflow/react/dist/style.css';
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  color-scheme: light;
+  --background: oklch(0.97 0.009 135);
+  --foreground: oklch(0.28 0.025 145);
+  --card: oklch(0.99 0.004 135);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.43 0.055 155);
+  --primary-foreground: oklch(0.99 0.004 135);
+  --secondary: oklch(0.93 0.018 145);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.94 0.012 135);
+  --muted-foreground: oklch(0.49 0.025 145);
+  --accent: var(--secondary);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.54 0.17 28);
+  --destructive-foreground: oklch(0.99 0.004 135);
+  --overlay: oklch(0.15 0.015 145 / 0.5);
+  --variable-accent: var(--primary);
+  --calculation-accent: oklch(0.47 0.055 245);
+  --control-accent: oklch(0.47 0.065 65);
+  --border: oklch(0.87 0.019 145);
+  --input: var(--border);
+  --ring: var(--primary);
+  --radius: 0.75rem;
+
+  /* Density changes spacing and text sizes without scaling the root font. */
+  --ui-xs: 0.5rem;
+  --ui-sm: 1rem;
+  --ui-md: 1.5rem;
+  --ui-lg: 2rem;
+  --page-y: 3rem;
+  --control: 2.5rem;
+  --control-xs: 1.75rem;
+  --control-sm: 2rem;
+  --control-lg: 3rem;
+  --control-x: 1rem;
+  --control-icon-x: 0.75rem;
+  --control-y: 0.5rem;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-3xl: 1.875rem;
+  --font-4xl: 2.25rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.2 0.018 145);
+  --foreground: oklch(0.93 0.012 135);
+  --card: oklch(0.24 0.02 145);
+  --primary: oklch(0.74 0.07 155);
+  --primary-foreground: oklch(0.2 0.018 145);
+  --secondary: oklch(0.3 0.025 145);
+  --muted: oklch(0.28 0.02 145);
+  --muted-foreground: oklch(0.72 0.025 145);
+  --destructive: oklch(0.7 0.15 28);
+  --calculation-accent: oklch(0.77 0.055 245);
+  --control-accent: oklch(0.78 0.065 65);
+  --border: oklch(0.36 0.023 145);
+}
+
+:root[data-density='compact'] {
+  --ui-xs: 0.375rem;
+  --ui-sm: 0.75rem;
+  --ui-md: 1rem;
+  --ui-lg: 1.5rem;
+  --page-y: 2rem;
+  --control: 2.25rem;
+  --control-xs: 1.5rem;
+  --control-sm: 1.75rem;
+  --control-lg: 2.5rem;
+  --control-x: 0.75rem;
+  --control-icon-x: 0.5rem;
+  --control-y: 0.375rem;
+  --font-xs: 0.6875rem;
+  --font-sm: 0.8125rem;
+  --font-base: 0.875rem;
+  --font-3xl: 1.625rem;
+  --font-4xl: 2rem;
+}
+
+:root[data-density='comfortable'] {
+  --ui-xs: 0.75rem;
+  --ui-sm: 1.25rem;
+  --ui-md: 2rem;
+  --ui-lg: 2.5rem;
+  --page-y: 4rem;
+  --control: 2.75rem;
+  --control-xs: 2rem;
+  --control-sm: 2.25rem;
+  --control-lg: 3.25rem;
+  --control-x: 1.25rem;
+  --control-icon-x: 1rem;
+  --control-y: 0.625rem;
+  --font-xs: 0.8125rem;
+  --font-sm: 0.9375rem;
+  --font-base: 1.0625rem;
+  --font-3xl: 2rem;
+  --font-4xl: 2.5rem;
+}
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Lora', serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-overlay: var(--overlay);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --spacing-ui-xs: var(--ui-xs);
+  --spacing-ui-sm: var(--ui-sm);
+  --spacing-ui-md: var(--ui-md);
+  --spacing-ui-lg: var(--ui-lg);
+  --spacing-page-y: var(--page-y);
+  --spacing-control: var(--control);
+  --spacing-control-xs: var(--control-xs);
+  --spacing-control-sm: var(--control-sm);
+  --spacing-control-lg: var(--control-lg);
+  --spacing-control-x: var(--control-x);
+  --spacing-control-icon-x: var(--control-icon-x);
+  --spacing-control-y: var(--control-y);
+  --text-xs: var(--font-xs);
+  --text-sm: var(--font-sm);
+  --text-base: var(--font-base);
+  --text-3xl: var(--font-3xl);
+  --text-4xl: var(--font-4xl);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply m-0 bg-background font-sans text-base text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+}
+
+.calculator-canvas {
+  background: var(--background);
+}
+
+.react-flow {
+  --xy-background-color: var(--background);
+  --xy-edge-stroke-default: var(--muted-foreground);
+  --xy-edge-stroke-selected-default: var(--primary);
+  --xy-edge-label-background-color-default: var(--card);
+  --xy-edge-label-color-default: var(--foreground);
+  --xy-controls-button-background-color-default: var(--card);
+  --xy-controls-button-background-color-hover-default: var(--accent);
+  --xy-controls-button-color-default: var(--foreground);
+  --xy-controls-button-border-color-default: var(--border);
+  --xy-attribution-background-color-default: var(--card);
+  font-family: var(--font-sans);
+}
+
+.calculator-node {
+  --node-accent: var(--variable-accent);
+  width: 22rem;
+  gap: var(--ui-sm);
+  padding-block: var(--ui-sm);
+  border-top: 3px solid var(--node-accent);
+  box-shadow: 0 4px 16px color-mix(in oklab, var(--foreground) 6%, transparent);
+}
+
+.calculator-node[data-kind='calculation'] {
+  --node-accent: var(--calculation-accent);
+}
+.calculator-node[data-kind='control'] {
+  --node-accent: var(--control-accent);
+}
+.calculator-node.node-selected {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.node-drag-handle {
+  cursor: grab;
+}
+.node-drag-handle:active {
+  cursor: grabbing;
+}
+
+.node-icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius);
+  color: var(--node-accent);
+  background: color-mix(in oklab, var(--node-accent) 10%, var(--card));
+}
+
+.dependency-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-xs);
+  padding: var(--ui-xs);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--muted);
+}
+
+.branch-field {
+  padding: var(--ui-xs);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.branch-active {
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 5%, var(--card));
+}
+.node-result {
+  padding-top: var(--ui-xs);
+  border-top: 1px solid var(--border);
+}
+.calculator-node .react-flow__handle {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--card);
+  background: var(--node-accent);
+}
+.calculator-node .react-flow__handle.connecting {
+  outline: 3px solid var(--ring);
+}
+.calculator-node .react-flow__handle.valid {
+  background: var(--primary);
+}
+.react-flow__edge.branch-edge .react-flow__edge-path {
+  stroke-dasharray: 5 4;
+}
+.react-flow__edge.edge-active .react-flow__edge-path {
+  stroke: var(--primary);
+  stroke-width: 2;
+  stroke-dasharray: none;
+}
+.react-flow__edge.edge-inactive {
+  opacity: 0.55;
+}
+.react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.react-flow__controls-button {
+  width: var(--control-sm);
+  height: var(--control-sm);
+}
+.react-flow__attribution {
+  font-size: var(--font-xs);
+}
+.react-flow__attribution a {
+  color: var(--muted-foreground);
+}
+.react-flow__panel.canvas-empty {
+  top: 50%;
+  transform: translate(-50%, -50%) !important;
+  width: min(30rem, calc(100% - 2rem));
+  margin: 0;
+}
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
