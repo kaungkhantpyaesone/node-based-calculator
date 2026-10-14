@@ -30,6 +30,12 @@ function coordinate(value: unknown, label: string): number {
   return value
 }
 
+function dimension(value: unknown, label: string): number {
+  const size = coordinate(value, label)
+  if (size <= 0) throw new Error(`${label} must be greater than zero.`)
+  return size
+}
+
 function readOperand(value: unknown): Operand {
   const operand = record(value, 'Condition operand')
   if (operand.kind === 'number')
@@ -45,6 +51,12 @@ function readNode(value: unknown): CalculatorNode {
   const data = record(node.data, 'Node data')
   const common = {
     id: identifier(node.id, 'Node ID'),
+    ...(node.width === undefined
+      ? {}
+      : { width: dimension(node.width, 'Node width') }),
+    ...(node.height === undefined
+      ? {}
+      : { height: dimension(node.height, 'Node height') }),
     position: {
       x: coordinate(position.x, 'Position x'),
       y: coordinate(position.y, 'Position y'),
@@ -152,12 +164,16 @@ export function serializeDocument(document: CalculatorDocument): string {
   return JSON.stringify(
     {
       version: document.version,
-      nodes: document.nodes.map(({ id, type, position, data }) => ({
-        id,
-        type,
-        position: { x: position.x, y: position.y },
-        data,
-      })),
+      nodes: document.nodes.map(
+        ({ id, type, position, width, height, data }) => ({
+          id,
+          type,
+          position: { x: position.x, y: position.y },
+          width,
+          height,
+          data,
+        }),
+      ),
       edges: document.edges.map(
         ({ id, source, sourceHandle, target, targetHandle }) => ({
           id,

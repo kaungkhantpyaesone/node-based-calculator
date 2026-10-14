@@ -28,6 +28,8 @@ type NodeDefinition<Kind extends NodeKind, Data> = {
   id: string
   type: Kind
   position: { x: number; y: number }
+  width?: number
+  height?: number
   data: Data
 }
 

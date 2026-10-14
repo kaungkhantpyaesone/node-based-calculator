@@ -36,6 +36,27 @@ describe('portable calculator documents', () => {
     expect(json).not.toContain('measured')
     expect(json).not.toContain('result')
   })
+  it('round-trips explicit card sizes while accepting existing unsized documents', () => {
+    const document = example()
+    expect(readDocument(serializeDocument(document))).toEqual(document)
+    for (const node of document.nodes) {
+      node.width = 500
+      node.height = 1000
+    }
+    expect(readDocument(serializeDocument(document))).toEqual(document)
+  })
+  it.each([0, -10, '480', null])(
+    'rejects invalid card dimensions %s',
+    (size) => {
+      for (const dimension of ['width', 'height']) {
+        const document = example()
+        Object.assign(document.nodes[0], { [dimension]: size })
+        expect(() => readDocument(serializeDocument(document))).toThrow(
+          `Node ${dimension}`,
+        )
+      }
+    },
+  )
   it.each(['not JSON', 'null', '[]', '{"version":2}', '{"version":1}'])(
     'rejects malformed or unsupported file %s',
     (json) => expect(() => readDocument(json)).toThrow(),

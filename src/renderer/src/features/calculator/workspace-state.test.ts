@@ -97,6 +97,75 @@ describe('workspace edits and unsaved changes', () => {
     expect(state.document.edges).toHaveLength(0)
     expect(state.results.get('b')?.status).toBe('error')
   })
+  it('saves deliberate resizes and their positions without recalculating results', () => {
+    const state = initialWorkspace({
+      ...emptyDocument(),
+      nodes: [variable('a')],
+    })
+    const resized = workspaceReducer(state, {
+      type: 'nodes-change',
+      changes: [
+        { type: 'position', id: 'a', position: { x: -40, y: -20 } },
+        {
+          type: 'dimensions',
+          id: 'a',
+          dimensions: { width: 480, height: 420 },
+          setAttributes: true,
+          resizing: true,
+        },
+      ],
+    })
+    expect(resized.document.nodes[0]).toMatchObject({
+      width: 480,
+      height: 420,
+      position: { x: -40, y: -20 },
+    })
+    expect(resized.results).toBe(state.results)
+    expect(hasUnsavedChanges(resized)).toBe(true)
+    const saved = workspaceReducer(resized, {
+      type: 'saved',
+      snapshot: serializeDocument(resized.document),
+    })
+    const measured = workspaceReducer(saved, {
+      type: 'nodes-change',
+      changes: [
+        {
+          type: 'dimensions',
+          id: 'a',
+          dimensions: { width: 480, height: 430 },
+        },
+      ],
+    })
+    expect(measured.document.nodes[0].height).toBe(420)
+    expect(hasUnsavedChanges(measured)).toBe(false)
+  })
+  it('keeps content size constraints transient and supports one-axis size changes', () => {
+    const state = initialWorkspace({
+      ...emptyDocument(),
+      nodes: [variable('a')],
+    })
+    const constrained = workspaceReducer(state, {
+      type: 'minimum-height',
+      id: 'a',
+      height: 360,
+    })
+    expect(constrained.minimumHeights.a).toBe(360)
+    expect(hasUnsavedChanges(constrained)).toBe(false)
+    expect(constrained.results).toBe(state.results)
+    const resized = workspaceReducer(constrained, {
+      type: 'nodes-change',
+      changes: [
+        {
+          type: 'dimensions',
+          id: 'a',
+          dimensions: { width: 500, height: 360 },
+          setAttributes: 'width',
+        },
+      ],
+    })
+    expect(resized.document.nodes[0].width).toBe(500)
+    expect(resized.document.nodes[0].height).toBeUndefined()
+  })
   it('retains the current document while prompting and when replacement is canceled', () => {
     const edited = editedWorkspace()
     const pending = workspaceReducer(edited, {

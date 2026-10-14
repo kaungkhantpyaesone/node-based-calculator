@@ -11,7 +11,7 @@ import userEvent from '@testing-library/user-event'
 import { CalculatorWorkspace } from './calculator-workspace'
 import { emptyDocument } from './model'
 import { serializeDocument } from './document'
-import { variable } from './test-fixtures'
+import { calculation, control, edge, variable } from './test-fixtures'
 
 beforeEach(() => {
   vi.stubGlobal(
@@ -47,6 +47,72 @@ function upload(json: string) {
 }
 
 describe('workspace user flows', () => {
+  it('focuses and selects dependency sources on double-click or keyboard activation', async () => {
+    render(<CalculatorWorkspace />)
+    upload(
+      serializeDocument({
+        ...emptyDocument(),
+        nodes: [variable('a'), calculation('b', 'a + 1'), control('choice')],
+        edges: [edge('a', 'b'), edge('b', 'choice')],
+      }),
+    )
+    await waitFor(() =>
+      expect(screen.getByLabelText('Focus a source')).toBeTruthy(),
+    )
+    const chip = screen.getByLabelText('Focus a source')
+    const source = screen
+      .getByLabelText('Variable name')
+      .closest('.react-flow__node')!
+    await userEvent.click(chip)
+    expect(source.classList.contains('selected')).toBe(false)
+    await userEvent.dblClick(chip)
+    await waitFor(() => expect(document.activeElement).toBe(source))
+    expect(source.classList.contains('selected')).toBe(true)
+    expect(source.querySelector('.card-resize-handle')).toBeTruthy()
+    expect(
+      chip.closest('.react-flow__node')?.classList.contains('selected'),
+    ).toBe(false)
+
+    const chainedChip = screen.getByLabelText('Focus b source')
+    chainedChip.focus()
+    await userEvent.keyboard('{Enter}')
+    await waitFor(() =>
+      expect(document.activeElement).toBe(chip.closest('.react-flow__node')),
+    )
+    expect(
+      document.querySelectorAll('.react-flow__node.selected'),
+    ).toHaveLength(1)
+    chip.focus()
+    await userEvent.keyboard(' ')
+    await waitFor(() => expect(document.activeElement).toBe(source))
+    expect(screen.getByLabelText('Expression').getAttribute('value')).toBe(
+      'a + 1',
+    )
+  })
+  it('keeps disconnecting a chip separate from source navigation', async () => {
+    render(<CalculatorWorkspace />)
+    upload(
+      serializeDocument({
+        ...emptyDocument(),
+        nodes: [variable('a'), calculation('b', 'a + 1')],
+        edges: [edge('a', 'b')],
+      }),
+    )
+    await waitFor(() =>
+      expect(screen.getByLabelText('Disconnect a from b')).toBeTruthy(),
+    )
+    await userEvent.click(screen.getByLabelText('Disconnect a from b'))
+    expect(screen.queryByLabelText('Focus a source')).toBeNull()
+    expect(
+      screen
+        .getByLabelText('Variable name')
+        .closest('.react-flow__node')
+        ?.classList.contains('selected'),
+    ).toBe(false)
+    expect(
+      screen.getByLabelText('Expression').getAttribute('aria-invalid'),
+    ).toBe('true')
+  })
   it('marks invalid numeric condition and branch fields without blocking an unused branch', async () => {
     render(<CalculatorWorkspace />)
     await userEvent.click(screen.getByRole('button', { name: 'Control flow' }))

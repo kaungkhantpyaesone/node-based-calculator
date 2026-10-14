@@ -1,4 +1,10 @@
-import { Handle, Position } from '@xyflow/react'
+import { useEffect, useRef } from 'react'
+import {
+  Handle,
+  NodeResizer,
+  Position,
+  useUpdateNodeInternals,
+} from '@xyflow/react'
 import type { Node, NodeProps } from '@xyflow/react'
 import {
   ArrowRight,
@@ -58,10 +64,13 @@ export type NodeEditor = {
   inputs: ConnectedInput[]
   branches: Partial<Record<Branch, ConnectedInput>>
   modeLocked: boolean
+  minimumHeight: number
+  reportMinimumHeight: (id: string, height: number) => void
   patch: (patch: NodePatch) => void
   commitName: () => void
   remove: () => void
   disconnect: (edgeId: string) => void
+  focusInput: (id: string) => void
 }
 export type FlowNode = Node<
   { definition: CalculatorNode; editor: NodeEditor },
@@ -90,11 +99,57 @@ export function CalculatorNodeView({ data, selected }: NodeProps<FlowNode>) {
   const { definition, editor } = data
   const details = nodeDetails[definition.type]
   const Icon = details.icon
+  const card = useRef<HTMLDivElement>(null)
+  const { minimumHeight, reportMinimumHeight } = editor
+  const updateNodeInternals = useUpdateNodeInternals()
+
+  useEffect(() => {
+    const element = card.current
+    if (!element) return
+    const sections = Array.from(element.children).filter((child) =>
+      child.hasAttribute('data-slot'),
+    ) as HTMLElement[]
+
+    // Keep every field and port visible, including feedback added after a resize.
+    const observer = new ResizeObserver(() => {
+      const style = getComputedStyle(element)
+      const spacing = (
+        [
+          'paddingTop',
+          'paddingBottom',
+          'borderTopWidth',
+          'borderBottomWidth',
+        ] as const
+      ).reduce((total, property) => total + parseFloat(style[property]), 0)
+      const height = sections.reduce(
+        (total, section) => total + section.offsetHeight,
+        0,
+      )
+      const requiredHeight = Math.ceil(
+        height + spacing + parseFloat(style.rowGap) * (sections.length - 1),
+      )
+      if (requiredHeight !== minimumHeight)
+        reportMinimumHeight(definition.id, requiredHeight)
+      updateNodeInternals(definition.id)
+    })
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [definition.id, minimumHeight, reportMinimumHeight, updateNodeInternals])
+
   return (
     <Card
+      ref={card}
       className={cn('calculator-node', selected && 'node-selected')}
       data-kind={definition.type}
+      style={{ minHeight: minimumHeight }}
     >
+      <NodeResizer
+        isVisible={selected}
+        minWidth={320}
+        minHeight={minimumHeight}
+        color="var(--ring)"
+        handleClassName="card-resize-handle"
+      />
       <CardHeader className="node-drag-handle">
         <div className="flex items-center justify-between gap-ui-xs">
           <div className="flex items-center gap-ui-xs">
@@ -245,13 +300,30 @@ function Dependencies({ editor, name }: { editor: NodeEditor; name: string }) {
                 variant="secondary"
                 key={input.edgeId}
                 className="max-w-full gap-1"
+                onDoubleClick={(event) => {
+                  event.stopPropagation()
+                  editor.focusInput(input.id)
+                }}
               >
-                <span className="truncate">{input.name}</span>
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  className="min-w-0"
+                  aria-label={`Focus ${input.name} source`}
+                  title="Double-click to focus source card (Enter or Space with keyboard)"
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    if (event.detail === 0) editor.focusInput(input.id)
+                  }}
+                >
+                  <span className="truncate">{input.name}</span>
+                </Button>
                 <Button
                   variant="ghost"
                   size="icon-xs"
                   aria-label={`Disconnect ${input.name} from ${name}`}
                   onClick={() => editor.disconnect(input.edgeId)}
+                  onDoubleClick={(event) => event.stopPropagation()}
                 >
                   <X />
                 </Button>

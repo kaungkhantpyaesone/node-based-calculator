@@ -1,0 +1,918 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "basic_salary",
+      "type": "variable",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {
+        "name": "basic_salary",
+        "nameDraft": "basic_salary",
+        "value": "300000"
+      }
+    },
+    {
+      "id": "days_in_month",
+      "type": "variable",
+      "position": {
+        "x": 480,
+        "y": 0
+      },
+      "data": {
+        "name": "days_in_month",
+        "nameDraft": "days_in_month",
+        "value": "30"
+      }
+    },
+    {
+      "id": "working_days_in_month",
+      "type": "variable",
+      "position": {
+        "x": 960,
+        "y": 0
+      },
+      "data": {
+        "name": "working_days_in_month",
+        "nameDraft": "working_days_in_month",
+        "value": "26"
+      }
+    },
+    {
+      "id": "months_in_year",
+      "type": "variable",
+      "position": {
+        "x": 1440,
+        "y": 0
+      },
+      "data": {
+        "name": "months_in_year",
+        "nameDraft": "months_in_year",
+        "value": "12"
+      }
+    },
+    {
+      "id": "weeks_in_year",
+      "type": "variable",
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "data": {
+        "name": "weeks_in_year",
+        "nameDraft": "weeks_in_year",
+        "value": "52"
+      }
+    },
+    {
+      "id": "attendance_days",
+      "type": "variable",
+      "position": {
+        "x": 0,
+        "y": 460
+      },
+      "data": {
+        "name": "attendance_days",
+        "nameDraft": "attendance_days",
+        "value": "24"
+      }
+    },
+    {
+      "id": "paid_leave_days",
+      "type": "variable",
+      "position": {
+        "x": 480,
+        "y": 460
+      },
+      "data": {
+        "name": "paid_leave_days",
+        "nameDraft": "paid_leave_days",
+        "value": "2"
+      }
+    },
+    {
+      "id": "unpaid_leave_days",
+      "type": "variable",
+      "position": {
+        "x": 960,
+        "y": 460
+      },
+      "data": {
+        "name": "unpaid_leave_days",
+        "nameDraft": "unpaid_leave_days",
+        "value": "0"
+      }
+    },
+    {
+      "id": "hours_in_week",
+      "type": "variable",
+      "position": {
+        "x": 1440,
+        "y": 460
+      },
+      "data": {
+        "name": "hours_in_week",
+        "nameDraft": "hours_in_week",
+        "value": "48"
+      }
+    },
+    {
+      "id": "overtime_multiplier",
+      "type": "variable",
+      "position": {
+        "x": 1920,
+        "y": 460
+      },
+      "data": {
+        "name": "overtime_multiplier",
+        "nameDraft": "overtime_multiplier",
+        "value": "2"
+      }
+    },
+    {
+      "id": "overtime_hours",
+      "type": "variable",
+      "position": {
+        "x": 0,
+        "y": 920
+      },
+      "data": {
+        "name": "overtime_hours",
+        "nameDraft": "overtime_hours",
+        "value": "12"
+      }
+    },
+    {
+      "id": "precalculated_overtime",
+      "type": "variable",
+      "position": {
+        "x": 480,
+        "y": 920
+      },
+      "data": {
+        "name": "precalculated_overtime",
+        "nameDraft": "precalculated_overtime",
+        "value": "10000"
+      }
+    },
+    {
+      "id": "overtime_category",
+      "type": "variable",
+      "position": {
+        "x": 960,
+        "y": 920
+      },
+      "data": {
+        "name": "overtime_category",
+        "nameDraft": "overtime_category",
+        "value": "0"
+      }
+    },
+    {
+      "id": "deduction",
+      "type": "variable",
+      "position": {
+        "x": 1440,
+        "y": 920
+      },
+      "data": {
+        "name": "deduction",
+        "nameDraft": "deduction",
+        "value": "1000"
+      }
+    },
+    {
+      "id": "tax",
+      "type": "variable",
+      "position": {
+        "x": 1920,
+        "y": 920
+      },
+      "data": {
+        "name": "tax",
+        "nameDraft": "tax",
+        "value": "1500"
+      }
+    },
+    {
+      "id": "monthly_fixed_allowance",
+      "type": "variable",
+      "position": {
+        "x": 0,
+        "y": 1380
+      },
+      "data": {
+        "name": "monthly_fixed_allowance",
+        "nameDraft": "monthly_fixed_allowance",
+        "value": "30000"
+      }
+    },
+    {
+      "id": "monthly_cost_of_living_allowance",
+      "type": "variable",
+      "position": {
+        "x": 480,
+        "y": 1380
+      },
+      "data": {
+        "name": "monthly_cost_of_living_allowance",
+        "nameDraft": "monthly_cost_of_living_allowance",
+        "value": "20000"
+      }
+    },
+    {
+      "id": "monthly_transportation_allowance",
+      "type": "variable",
+      "position": {
+        "x": 960,
+        "y": 1380
+      },
+      "data": {
+        "name": "monthly_transportation_allowance",
+        "nameDraft": "monthly_transportation_allowance",
+        "value": "15000"
+      }
+    },
+    {
+      "id": "monthly_relocation_allowance",
+      "type": "variable",
+      "position": {
+        "x": 1440,
+        "y": 1380
+      },
+      "data": {
+        "name": "monthly_relocation_allowance",
+        "nameDraft": "monthly_relocation_allowance",
+        "value": "0"
+      }
+    },
+    {
+      "id": "monthly_other_allowance",
+      "type": "variable",
+      "position": {
+        "x": 1920,
+        "y": 1380
+      },
+      "data": {
+        "name": "monthly_other_allowance",
+        "nameDraft": "monthly_other_allowance",
+        "value": "5000"
+      }
+    },
+    {
+      "id": "working_days",
+      "type": "calculation",
+      "position": {
+        "x": 2500,
+        "y": 0
+      },
+      "data": {
+        "name": "working_days",
+        "nameDraft": "working_days",
+        "expression": "attendance_days + paid_leave_days"
+      }
+    },
+    {
+      "id": "allowance_unpaid_leave_fraction",
+      "type": "calculation",
+      "position": {
+        "x": 2500,
+        "y": 850
+      },
+      "data": {
+        "name": "allowance_unpaid_leave_fraction",
+        "nameDraft": "allowance_unpaid_leave_fraction",
+        "expression": "unpaid_leave_days / working_days_in_month"
+      }
+    },
+    {
+      "id": "earned_salary",
+      "type": "calculation",
+      "position": {
+        "x": 3200,
+        "y": 0
+      },
+      "data": {
+        "name": "earned_salary",
+        "nameDraft": "earned_salary",
+        "expression": "(basic_salary / days_in_month) * working_days"
+      }
+    },
+    {
+      "id": "unpaid_leave",
+      "type": "calculation",
+      "position": {
+        "x": 3200,
+        "y": 750
+      },
+      "data": {
+        "name": "unpaid_leave",
+        "nameDraft": "unpaid_leave",
+        "expression": "((basic_salary * months_in_year) / (weeks_in_year * working_days)) * unpaid_leave_days"
+      }
+    },
+    {
+      "id": "supervisor_overtime",
+      "type": "calculation",
+      "position": {
+        "x": 3200,
+        "y": 1500
+      },
+      "data": {
+        "name": "supervisor_overtime",
+        "nameDraft": "supervisor_overtime",
+        "expression": "overtime_multiplier * ((basic_salary * months_in_year) / (weeks_in_year * hours_in_week)) * overtime_hours"
+      }
+    },
+    {
+      "id": "above_supervisor_overtime",
+      "type": "calculation",
+      "position": {
+        "x": 3200,
+        "y": 2250
+      },
+      "data": {
+        "name": "above_supervisor_overtime",
+        "nameDraft": "above_supervisor_overtime",
+        "expression": "precalculated_overtime"
+      }
+    },
+    {
+      "id": "fixed_allowance",
+      "type": "calculation",
+      "position": {
+        "x": 3200,
+        "y": 3000
+      },
+      "data": {
+        "name": "fixed_allowance",
+        "nameDraft": "fixed_allowance",
+        "expression": "((monthly_fixed_allowance / days_in_month) * working_days) - (allowance_unpaid_leave_fraction * monthly_fixed_allowance)"
+      }
+    },
+    {
+      "id": "cost_of_living_allowance",
+      "type": "calculation",
+      "position": {
+        "x": 3800,
+        "y": 3000
+      },
+      "data": {
+        "name": "cost_of_living_allowance",
+        "nameDraft": "cost_of_living_allowance",
+        "expression": "((monthly_cost_of_living_allowance / days_in_month) * working_days) - (allowance_unpaid_leave_fraction * monthly_cost_of_living_allowance)"
+      }
+    },
+    {
+      "id": "transportation_allowance",
+      "type": "calculation",
+      "position": {
+        "x": 4400,
+        "y": 3000
+      },
+      "data": {
+        "name": "transportation_allowance",
+        "nameDraft": "transportation_allowance",
+        "expression": "((monthly_transportation_allowance / days_in_month) * working_days) - (allowance_unpaid_leave_fraction * monthly_transportation_allowance)"
+      }
+    },
+    {
+      "id": "relocation_allowance",
+      "type": "calculation",
+      "position": {
+        "x": 3200,
+        "y": 3750
+      },
+      "data": {
+        "name": "relocation_allowance",
+        "nameDraft": "relocation_allowance",
+        "expression": "((monthly_relocation_allowance / days_in_month) * working_days) - (allowance_unpaid_leave_fraction * monthly_relocation_allowance)"
+      }
+    },
+    {
+      "id": "other_allowance",
+      "type": "calculation",
+      "position": {
+        "x": 3800,
+        "y": 3750
+      },
+      "data": {
+        "name": "other_allowance",
+        "nameDraft": "other_allowance",
+        "expression": "(monthly_other_allowance / days_in_month) * working_days"
+      }
+    },
+    {
+      "id": "allowance",
+      "type": "calculation",
+      "position": {
+        "x": 5100,
+        "y": 3150
+      },
+      "data": {
+        "name": "allowance",
+        "nameDraft": "allowance",
+        "expression": "fixed_allowance + cost_of_living_allowance + transportation_allowance + relocation_allowance + other_allowance"
+      }
+    },
+    {
+      "id": "ssb_below_cap",
+      "type": "calculation",
+      "position": {
+        "x": 4400,
+        "y": 0
+      },
+      "data": {
+        "name": "ssb_below_cap",
+        "nameDraft": "ssb_below_cap",
+        "expression": "earned_salary * 0.02"
+      }
+    },
+    {
+      "id": "ssb_at_cap",
+      "type": "calculation",
+      "position": {
+        "x": 4400,
+        "y": 750
+      },
+      "data": {
+        "name": "ssb_at_cap",
+        "nameDraft": "ssb_at_cap",
+        "expression": "300000 * 0.02"
+      }
+    },
+    {
+      "id": "ssb",
+      "type": "control",
+      "position": {
+        "x": 5100,
+        "y": 0
+      },
+      "data": {
+        "name": "ssb",
+        "nameDraft": "ssb",
+        "mode": "calculation",
+        "condition": {
+          "left": {
+            "kind": "node",
+            "nodeId": "earned_salary"
+          },
+          "operator": "<",
+          "right": {
+            "kind": "number",
+            "value": "300000"
+          }
+        },
+        "ifValue": "0",
+        "elseValue": "0"
+      }
+    },
+    {
+      "id": "overtime",
+      "type": "control",
+      "position": {
+        "x": 5100,
+        "y": 1500
+      },
+      "data": {
+        "name": "overtime",
+        "nameDraft": "overtime",
+        "mode": "calculation",
+        "condition": {
+          "left": {
+            "kind": "node",
+            "nodeId": "overtime_category"
+          },
+          "operator": "==",
+          "right": {
+            "kind": "number",
+            "value": "0"
+          }
+        },
+        "ifValue": "0",
+        "elseValue": "0"
+      }
+    },
+    {
+      "id": "net_salary",
+      "type": "calculation",
+      "position": {
+        "x": 6600,
+        "y": 1450
+      },
+      "data": {
+        "name": "net_salary",
+        "nameDraft": "net_salary",
+        "expression": "earned_salary + overtime + allowance - deduction - unpaid_leave - tax - ssb"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "attendance_days-working_days-dependencies",
+      "source": "attendance_days",
+      "sourceHandle": "output",
+      "target": "working_days",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "paid_leave_days-working_days-dependencies",
+      "source": "paid_leave_days",
+      "sourceHandle": "output",
+      "target": "working_days",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "unpaid_leave_days-allowance_unpaid_leave_fraction-dependencies",
+      "source": "unpaid_leave_days",
+      "sourceHandle": "output",
+      "target": "allowance_unpaid_leave_fraction",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days_in_month-allowance_unpaid_leave_fraction-dependencies",
+      "source": "working_days_in_month",
+      "sourceHandle": "output",
+      "target": "allowance_unpaid_leave_fraction",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "basic_salary-earned_salary-dependencies",
+      "source": "basic_salary",
+      "sourceHandle": "output",
+      "target": "earned_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "days_in_month-earned_salary-dependencies",
+      "source": "days_in_month",
+      "sourceHandle": "output",
+      "target": "earned_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-earned_salary-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "earned_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "basic_salary-unpaid_leave-dependencies",
+      "source": "basic_salary",
+      "sourceHandle": "output",
+      "target": "unpaid_leave",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "months_in_year-unpaid_leave-dependencies",
+      "source": "months_in_year",
+      "sourceHandle": "output",
+      "target": "unpaid_leave",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "weeks_in_year-unpaid_leave-dependencies",
+      "source": "weeks_in_year",
+      "sourceHandle": "output",
+      "target": "unpaid_leave",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-unpaid_leave-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "unpaid_leave",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "unpaid_leave_days-unpaid_leave-dependencies",
+      "source": "unpaid_leave_days",
+      "sourceHandle": "output",
+      "target": "unpaid_leave",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "overtime_multiplier-supervisor_overtime-dependencies",
+      "source": "overtime_multiplier",
+      "sourceHandle": "output",
+      "target": "supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "basic_salary-supervisor_overtime-dependencies",
+      "source": "basic_salary",
+      "sourceHandle": "output",
+      "target": "supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "months_in_year-supervisor_overtime-dependencies",
+      "source": "months_in_year",
+      "sourceHandle": "output",
+      "target": "supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "weeks_in_year-supervisor_overtime-dependencies",
+      "source": "weeks_in_year",
+      "sourceHandle": "output",
+      "target": "supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "hours_in_week-supervisor_overtime-dependencies",
+      "source": "hours_in_week",
+      "sourceHandle": "output",
+      "target": "supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "overtime_hours-supervisor_overtime-dependencies",
+      "source": "overtime_hours",
+      "sourceHandle": "output",
+      "target": "supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "precalculated_overtime-above_supervisor_overtime-dependencies",
+      "source": "precalculated_overtime",
+      "sourceHandle": "output",
+      "target": "above_supervisor_overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "monthly_fixed_allowance-fixed_allowance-dependencies",
+      "source": "monthly_fixed_allowance",
+      "sourceHandle": "output",
+      "target": "fixed_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "days_in_month-fixed_allowance-dependencies",
+      "source": "days_in_month",
+      "sourceHandle": "output",
+      "target": "fixed_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-fixed_allowance-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "fixed_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "allowance_unpaid_leave_fraction-fixed_allowance-dependencies",
+      "source": "allowance_unpaid_leave_fraction",
+      "sourceHandle": "output",
+      "target": "fixed_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "monthly_cost_of_living_allowance-cost_of_living_allowance-dependencies",
+      "source": "monthly_cost_of_living_allowance",
+      "sourceHandle": "output",
+      "target": "cost_of_living_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "days_in_month-cost_of_living_allowance-dependencies",
+      "source": "days_in_month",
+      "sourceHandle": "output",
+      "target": "cost_of_living_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-cost_of_living_allowance-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "cost_of_living_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "allowance_unpaid_leave_fraction-cost_of_living_allowance-dependencies",
+      "source": "allowance_unpaid_leave_fraction",
+      "sourceHandle": "output",
+      "target": "cost_of_living_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "monthly_transportation_allowance-transportation_allowance-dependencies",
+      "source": "monthly_transportation_allowance",
+      "sourceHandle": "output",
+      "target": "transportation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "days_in_month-transportation_allowance-dependencies",
+      "source": "days_in_month",
+      "sourceHandle": "output",
+      "target": "transportation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-transportation_allowance-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "transportation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "allowance_unpaid_leave_fraction-transportation_allowance-dependencies",
+      "source": "allowance_unpaid_leave_fraction",
+      "sourceHandle": "output",
+      "target": "transportation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "monthly_relocation_allowance-relocation_allowance-dependencies",
+      "source": "monthly_relocation_allowance",
+      "sourceHandle": "output",
+      "target": "relocation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "days_in_month-relocation_allowance-dependencies",
+      "source": "days_in_month",
+      "sourceHandle": "output",
+      "target": "relocation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-relocation_allowance-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "relocation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "allowance_unpaid_leave_fraction-relocation_allowance-dependencies",
+      "source": "allowance_unpaid_leave_fraction",
+      "sourceHandle": "output",
+      "target": "relocation_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "monthly_other_allowance-other_allowance-dependencies",
+      "source": "monthly_other_allowance",
+      "sourceHandle": "output",
+      "target": "other_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "days_in_month-other_allowance-dependencies",
+      "source": "days_in_month",
+      "sourceHandle": "output",
+      "target": "other_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "working_days-other_allowance-dependencies",
+      "source": "working_days",
+      "sourceHandle": "output",
+      "target": "other_allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "fixed_allowance-allowance-dependencies",
+      "source": "fixed_allowance",
+      "sourceHandle": "output",
+      "target": "allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "cost_of_living_allowance-allowance-dependencies",
+      "source": "cost_of_living_allowance",
+      "sourceHandle": "output",
+      "target": "allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "transportation_allowance-allowance-dependencies",
+      "source": "transportation_allowance",
+      "sourceHandle": "output",
+      "target": "allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "relocation_allowance-allowance-dependencies",
+      "source": "relocation_allowance",
+      "sourceHandle": "output",
+      "target": "allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "other_allowance-allowance-dependencies",
+      "source": "other_allowance",
+      "sourceHandle": "output",
+      "target": "allowance",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "earned_salary-ssb_below_cap-dependencies",
+      "source": "earned_salary",
+      "sourceHandle": "output",
+      "target": "ssb_below_cap",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "earned_salary-ssb-dependencies",
+      "source": "earned_salary",
+      "sourceHandle": "output",
+      "target": "ssb",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "ssb_below_cap-ssb-if",
+      "source": "ssb_below_cap",
+      "sourceHandle": "output",
+      "target": "ssb",
+      "targetHandle": "if"
+    },
+    {
+      "id": "ssb_at_cap-ssb-else",
+      "source": "ssb_at_cap",
+      "sourceHandle": "output",
+      "target": "ssb",
+      "targetHandle": "else"
+    },
+    {
+      "id": "overtime_category-overtime-dependencies",
+      "source": "overtime_category",
+      "sourceHandle": "output",
+      "target": "overtime",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "supervisor_overtime-overtime-if",
+      "source": "supervisor_overtime",
+      "sourceHandle": "output",
+      "target": "overtime",
+      "targetHandle": "if"
+    },
+    {
+      "id": "above_supervisor_overtime-overtime-else",
+      "source": "above_supervisor_overtime",
+      "sourceHandle": "output",
+      "target": "overtime",
+      "targetHandle": "else"
+    },
+    {
+      "id": "earned_salary-net_salary-dependencies",
+      "source": "earned_salary",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "overtime-net_salary-dependencies",
+      "source": "overtime",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "allowance-net_salary-dependencies",
+      "source": "allowance",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "deduction-net_salary-dependencies",
+      "source": "deduction",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "unpaid_leave-net_salary-dependencies",
+      "source": "unpaid_leave",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "tax-net_salary-dependencies",
+      "source": "tax",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    },
+    {
+      "id": "ssb-net_salary-dependencies",
+      "source": "ssb",
+      "sourceHandle": "output",
+      "target": "net_salary",
+      "targetHandle": "dependencies"
+    }
+  ],
+  "viewport": {
+    "x": 32,
+    "y": 32,
+    "zoom": 0.105
+  }
+}

@@ -26,6 +26,7 @@ export type WorkspaceState = {
   selectedNodes: string[]
   selectedEdges: string[]
   measurements: Record<string, { width: number; height: number }>
+  minimumHeights: Record<string, number>
   pending: Replacement | null
   message: string | null
 }
@@ -41,6 +42,7 @@ export type WorkspaceAction =
   | { type: 'rename'; id: string }
   | { type: 'connect'; connection: CandidateConnection; id: string }
   | { type: 'nodes-change'; changes: NodeChange[] }
+  | { type: 'minimum-height'; id: string; height: number }
   | { type: 'edges-change'; changes: EdgeChange[] }
   | { type: 'delete'; nodeIds?: string[]; edgeIds?: string[] }
   | { type: 'viewport'; viewport: CalculatorDocument['viewport'] }
@@ -62,6 +64,7 @@ export function initialWorkspace(
     selectedNodes: [],
     selectedEdges: [],
     measurements: {},
+    minimumHeights: {},
     pending: null,
     message: null,
   }
@@ -158,12 +161,27 @@ export function workspaceReducer(
         .map((change) => change.id)
       const updated = withoutElements(document, removed, [])
       updated.nodes = updated.nodes.map((node) => {
-        const moved = action.changes.find(
-          (change) => change.type === 'position' && change.id === node.id,
-        )
-        return moved?.type === 'position' && moved.position
-          ? { ...node, position: moved.position }
-          : node
+        let updatedNode = node
+        for (const change of action.changes) {
+          if (!('id' in change) || change.id !== node.id) continue
+          if (change.type === 'position' && change.position)
+            updatedNode = { ...updatedNode, position: change.position }
+
+          // Only deliberate resizing is saved; observer measurements stay transient.
+          if (change.type === 'dimensions' && change.dimensions) {
+            if (
+              change.setAttributes === true ||
+              change.setAttributes === 'width'
+            )
+              updatedNode = { ...updatedNode, width: change.dimensions.width }
+            if (
+              change.setAttributes === true ||
+              change.setAttributes === 'height'
+            )
+              updatedNode = { ...updatedNode, height: change.dimensions.height }
+          }
+        }
+        return updatedNode
       })
       for (const change of action.changes) {
         if (change.type === 'dimensions' && change.dimensions) {
@@ -182,6 +200,16 @@ export function workspaceReducer(
         removed.length > 0,
       )
     }
+    case 'minimum-height':
+      return state.minimumHeights[action.id] === action.height
+        ? state
+        : {
+            ...state,
+            minimumHeights: {
+              ...state.minimumHeights,
+              [action.id]: action.height,
+            },
+          }
     case 'edges-change': {
       let selectedEdges = state.selectedEdges
       const removed = action.changes

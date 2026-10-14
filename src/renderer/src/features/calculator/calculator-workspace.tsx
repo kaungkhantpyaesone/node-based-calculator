@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
 import type { ChangeEvent, Dispatch, KeyboardEvent } from 'react'
 import {
   Background,
@@ -7,6 +7,7 @@ import {
   Panel,
   ReactFlow,
   ReactFlowProvider,
+  getViewportForBounds,
   useNodesInitialized,
   useReactFlow,
 } from '@xyflow/react'
@@ -85,6 +86,9 @@ function Workspace() {
   const fitPending = useRef(false)
   const dirty = hasUnsavedChanges(state)
   const document = state.document
+  const reportMinimumHeight = useCallback((id: string, height: number) => {
+    dispatch({ type: 'minimum-height', id, height })
+  }, [])
 
   // Browser closure prompts apply only while this document has unsaved edits.
   useEffect(() => {
@@ -178,6 +182,43 @@ function Workspace() {
     }
   }
 
+  function focusInput(id: string) {
+    dispatch({
+      type: 'nodes-change',
+      changes: document.nodes.map((node) => ({
+        type: 'select',
+        id: node.id,
+        selected: node.id === id,
+      })),
+    })
+    dispatch({
+      type: 'edges-change',
+      changes: state.selectedEdges.map((id) => ({
+        type: 'select',
+        id,
+        selected: false,
+      })),
+    })
+    function focusCard() {
+      Array.from(
+        canvas.current?.querySelectorAll<HTMLElement>('.react-flow__node') ??
+          [],
+      )
+        .find((element) => element.dataset.id === id)
+        ?.focus({ preventScroll: true })
+    }
+
+    const bounds = flow.getNodesBounds([id])
+    const width = canvas.current?.clientWidth ?? 0
+    const height = canvas.current?.clientHeight ?? 0
+    if (!bounds.width || !bounds.height || !width || !height) {
+      focusCard()
+      return
+    }
+    const viewport = getViewportForBounds(bounds, width, height, 0.1, 1, 0.3)
+    void flow.setViewport(viewport).then(focusCard)
+  }
+
   // Keep React Flow measurements, selection, and callbacks out of saved data.
   const nodes: FlowNode[] = document.nodes.map((node) => {
     const connections = document.edges.filter((edge) => edge.target === node.id)
@@ -202,15 +243,26 @@ function Workspace() {
         .map((edge) => inputFor(edge.id)),
       branches,
       modeLocked: modeIsLocked(node.id, document.edges),
+      minimumHeight: state.minimumHeights[node.id] ?? 0,
+      reportMinimumHeight,
       patch: (patch) => dispatch({ type: 'patch', id: node.id, patch }),
       commitName: () => dispatch({ type: 'rename', id: node.id }),
       remove: () => dispatch({ type: 'delete', nodeIds: [node.id] }),
       disconnect: (edgeId) => dispatch({ type: 'delete', edgeIds: [edgeId] }),
+      focusInput,
     }
     return {
       id: node.id,
       type: node.type,
       position: node.position,
+      width: node.width,
+      height: node.height,
+      style: {
+        width: node.width ?? 352,
+        height: node.height,
+        minWidth: 320,
+        minHeight: state.minimumHeights[node.id],
+      },
       measured: state.measurements[node.id],
       selected: state.selectedNodes.includes(node.id),
       dragHandle: '.node-drag-handle',
